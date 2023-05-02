@@ -1,6 +1,7 @@
 import connect from "./conexao.js";
 import modObj from "../modelo/objMod.js";
 
+//classe responsavel para a comunicação e execução correta de dados vindos do sql
 export default class dbObj {
 
     async GET() {

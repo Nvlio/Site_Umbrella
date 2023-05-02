@@ -1,5 +1,6 @@
 import modObj from "../modelo/objMod.js"
 
+//classe que permite realizar metodos para cada requisição feita ao servidor
 export default class objectCtrl {
     async GET(req, resp) {
         if (req.method == "GET") {

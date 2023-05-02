@@ -1,5 +1,7 @@
 import dbObj from "../persistencia/objDB.js"
 
+
+//classe que constroi e trabalha com os objetos e modelos dele de como deve ser retratado etc...
 export default class modObj{
     
     #nome
