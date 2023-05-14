@@ -1,3 +1,4 @@
+import ProdList from "./Content/Prod"
 import Navibar from "./Elementos/nav.jsx"
 import Pagina from "./Pages/default.jsx"
 
@@ -16,7 +17,7 @@ export function PagProd(){
         <div>
             <Navibar/>
             <Pagina title="Nossos produtos" desc="Aqui um catalogo com todos os produtos vendidos por nós para melhorar a qualidade e longevidade da sua vida">
-                {/*aqui vai ser referenciado a pag que vai ter a lista de produtos*/}
+                <ProdList></ProdList>
             </Pagina>
         </div>
     )
