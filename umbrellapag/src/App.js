@@ -1,5 +1,5 @@
 import './App.css';
-import {PagHome,  Pag404, PagProd, PagAbout, PagJobs, PagCont } from './pag.jsx';
+import {PagHome,  Pag404, PagProd, PagAbout, PagJobs, PagCont, PagConnect } from './pag.jsx';
 import { Route,BrowserRouter,Routes } from 'react-router-dom';
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
           <Route path="/About" element={<PagAbout/>}/>
           <Route path="/Jobs" element={<PagJobs/>}/>
           <Route path="/Contact" element={<PagCont/>}/>
+          <Route path="/LogCad" element={<PagConnect/>}/>
           <Route path="/*" element={<Pag404/>}/>
         </Routes>
       </BrowserRouter>

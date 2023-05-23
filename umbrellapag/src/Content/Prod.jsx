@@ -7,7 +7,7 @@ export default function ProdList(){
     const url ="http://www.localhost:4004/produtos"
     const [listProd,setListProd] = useState([])
     const [status,setStatus] = useState("Ocioso")
-    const msgM=""
+    const [msgM,setMsg] = useState('')
 
     useEffect(()=>{
         try{
@@ -19,11 +19,11 @@ export default function ProdList(){
             })
         }).catch((erro)=>{
             setStatus('Erro')
-            msgM=erro
+            setMsg(erro)
         })
     } catch(erro){
         setStatus('Erro')
-        msgM=erro
+        setMsg(erro)
     }},[])
 
     if (status==="Executando"){
@@ -45,7 +45,6 @@ export default function ProdList(){
     return(
         <div>
             {listProd.map((prod)=>{
-                {console.log(prod)}
                 return(
                 <div style={{textAlign:"justify"}} key={prod.codprod}>
                     <h1>{prod['nome']}</h1>
