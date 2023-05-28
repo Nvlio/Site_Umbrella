@@ -11,6 +11,7 @@ export function PagHome() {
         <div>
             <Navibar/>
             <Pagina class="" title="" desc="Umbrella corporations, é focada na pesquisa de medicamentos para melhorar a qualidade da sua vida e a de seus entes queridos">
+
                 <img src={require("./foto/UmbrMHlogo.png")} width={'100%'} height={"100%"} alt="Propaganda da umbrella com uma familia feliz"></img>
             </Pagina>
         </div>
@@ -18,6 +19,7 @@ export function PagHome() {
 };
 
 //pag responsavel por mostrar todos os produtos da empresa, foco agora que cheguei em um break de cadastro e formulario
+
 export function PagProd() {
     return (
         <div>

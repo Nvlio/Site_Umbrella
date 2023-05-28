@@ -2,10 +2,7 @@ import './App.css';
 import {PagHome,  Pag404, PagProd, PagAbout, PagJobs, PagCont, PagConnect } from './pag.jsx';
 import { Route,BrowserRouter,Routes } from 'react-router-dom';
 
-
 function App() {
-
-
   return (
     <div className="App">
       <BrowserRouter>

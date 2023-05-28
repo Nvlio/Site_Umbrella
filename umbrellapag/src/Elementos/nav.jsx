@@ -34,6 +34,7 @@ export function Navibar(props) {
                     {/* cadastro e login vai ficar aqui*/}
                 </Container>
                 {user.nome !== "" ? <Navbar.Brand><p style={{fontSize:'15px'}}>{user.nome}</p></Navbar.Brand> : <LinkContainer to={"/LogCad"} ><Navbar.Brand><button style={{ color: 'white' }} type="button" className="btn btn-info">Conectar-se</button></Navbar.Brand></LinkContainer>}
+
             </Navbar>
         </div>)
 }

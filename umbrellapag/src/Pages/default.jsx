@@ -32,6 +32,7 @@ export default function Pagina(props) {
                 <LinkContainer to="/"><h4 className={props.class} style={{ textAlign: "center" }}>{props.desc}</h4></LinkContainer>
 
 
+
             </div>
         )
     } 
@@ -44,6 +45,7 @@ export default function Pagina(props) {
                 <hr></hr>
                 <div>{props.children}</div>
                 {props.par === undefined ? null: user.nome!=="" ? null :props.par==="Log" ? <p>Não tem conta? <button className="Camu" onClick={Click}>Cadastre-se</button></p>:<p>Ja possui uma conta? <button className="Camu" onClick={Click}>Logue </button></p>}
+
             </div>
         )
     }
