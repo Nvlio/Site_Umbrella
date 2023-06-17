@@ -49,7 +49,7 @@ export default class modVaga{
             "nome":this.#nome,
             "desc":this.#desc,
             "cod":this.#cod,
-            'salario':this.#salario
+            "salario":this.#salario
         }
     }
     

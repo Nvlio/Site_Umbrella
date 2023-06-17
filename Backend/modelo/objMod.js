@@ -54,7 +54,7 @@ export default class modObj{
             "nome":this.#nome,
             "desc":this.#desc,
             "fotoM":this.#fotoM,
-            "codprod":this.#codProd,
+            "cod":this.#codProd,
             "valor":this.#valor
         }
     }

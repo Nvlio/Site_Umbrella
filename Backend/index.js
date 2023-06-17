@@ -1,21 +1,25 @@
-import express from 'express'
+import express from "express";
+import funcRota from "./rota/rotafunc.js";
+import objRota from "./rota/rotasObj.js";
+import vagaRota from "./rota/rotaVagas.js";
 import cors from 'cors'
-import objRota from './rota/rotasObj.js'
 
-///inicia as constantes basicas host,porta tempo e inicia o express
-const porta=4004
-const host="localhost"
-const data = new Date();
-const app=express()
+/* inicia a porta e host*/ 
+const porta = 2023;
+const host = 'localhost';
 
-//define para aceitar e entender json
-app.use(express.json())
-//ao receber uma chamada que contenha uma dessas rotas ele chama a rota especifica
-app.use("/produtos",objRota)
-//permite que possa ser chamado por apps externos
-app.use(cors())
+///incia o express
+const app = express();
 
-//inicia servidor
-app.listen(porta,host,()=>{
-    console.log(`escutando o servidor http://www.${host}:${porta} as ${data.getHours()}:${data.getMinutes()}:${data.getSeconds()}`)
-})
+
+
+
+app.use(cors());
+app.use(express.json());
+app.use('/Objects',objRota)
+app.use('/funcionario',funcRota)
+app.use('/empregos',vagaRota)
+
+
+
+app.listen(porta,host,()=>{console.log('escutando servidor http://'+host+':'+porta)})

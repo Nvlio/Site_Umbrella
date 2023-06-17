@@ -54,7 +54,7 @@ export default class modFunc{
             "nome":this.#nome,
             "desc":this.#desc,
             "fotoM":this.#fotoM,
-            "codigo":this.#codProd,
+            "cod":this.#codProd,
             "nivel":this.#nivel
         }
     }
