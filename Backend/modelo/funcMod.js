@@ -1,21 +1,22 @@
-import dbObj from "../persistencia/objDB.js"
+import dbFunc from "../persistencia/funcDB.js"
 
 
 //classe que constroi e trabalha com os objetos e modelos dele de como deve ser retratado etc...
-export default class modObj{
+export default class modFunc{
     
     #nome
     #desc
     #fotoM
     #codProd
-    #valor
+    #nivel
 
-    constructor(nome,desc,fotmain,codprod,valor){
+
+    constructor(nome,desc,fotmain,codprod,nivel){
         this.#nome=nome
         this.#desc=desc
         this.#fotoM=fotmain
         this.#codProd=codprod
-        this.#valor=valor
+        this.#nivel=nivel
     }
 
     get nome(){
@@ -26,13 +27,12 @@ export default class modObj{
         return this.#nome
     }
 
-    get valor(){
-        return this.#valor
+    get nivel(){
+        return this.#nivel
     }
-
-    set valor(Nvalor){
-        this.#valor=valor
-        return this.#valor
+    set nivel(nvalu){
+        this.#nivel=nvalu
+        return this.#nivel
     }
 
     get desc(){
@@ -54,39 +54,39 @@ export default class modObj{
             "nome":this.#nome,
             "desc":this.#desc,
             "fotoM":this.#fotoM,
-            "codprod":this.#codProd,
-            "valor":this.#valor
+            "codigo":this.#codProd,
+            "nivel":this.#nivel
         }
     }
     
 
     async pegarDados(){
-        const DataBase = new  dbObj()
+        console.log('chamei')
+        const DataBase = new  dbFunc()
         const db = await DataBase.GET()
-        console.log('db',db)
         return db
     }
 
     async pegardadosNome(){
-        const DataBase = new dbObj()
+        const DataBase = new dbFunc()
         const db = await DataBase.GETID(this.#nome)
         return db
     }
 
     async atualizaDados(){
-        const DataBase = new dbObj()
-        const db = await DataBase.PUT(this.#nome,this.#desc,this.#fotoM,this.#codProd,this.#valor)
+        const DataBase = new dbFunc()
+        const db = await DataBase.PUT(this.#nome,this.#desc,this.#fotoM,this.#codProd)
         return db
     }
 
     async adicionarDados(){
-        const DataBase = new dbObj()
-        const db = DataBase.POST(this.#nome,this.#desc,this.#fotoM,this.#codProd,this.#valor)
+        const DataBase = new dbFunc()
+        const db = DataBase.POST(this.#nome,this.#desc,this.#fotoM,this.#codProd)
         return db
     }
 
     async excluirDados(){
-        const DataBase = new dbObj()
+        const DataBase = new dbFunc()
         const db = DataBase.DELETE(this.#codProd)
         return db
 }}

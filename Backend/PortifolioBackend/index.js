@@ -1,6 +1,7 @@
 import express from "express";
-import rotaCad from "./Rota/RotaUsu.js";
-import rotaObj from "./Rota/RotaObj.js";
+import funcRota from "../rota/rotafunc.js";
+import objRota from "../rota/rotasObj.js";
+import vagaRota from "../rota/rotaVagas.js";
 import cors from 'cors'
 
 /* inicia a porta e host*/ 
@@ -12,12 +13,12 @@ const app = express();
 
 
 
-console.log(data)
 
 app.use(cors());
 app.use(express.json());
-app.use('/Objects',rotaObj)
-app.use('/Usuarios',rotaCad)
+app.use('/Objects',objRota)
+app.use('/funcionario',funcRota)
+app.use('/empregos',vagaRota)
 
 
 

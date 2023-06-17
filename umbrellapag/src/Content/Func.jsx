@@ -6,10 +6,10 @@ import {Buffer} from "buffer"
 import { Contexto } from "../Contextualizacao.jsx"
 
 
-export default function ProdList(){
+export default function FunList(){
     
-    const url ="http://www.localhost:2023/Objects"
-    const [listProd,setListProd] = useState([])
+    const url ="http://www.localhost:2023/funcionario"
+    const [listFunc,setListFunc] = useState([])
     const [status,setStatus] = useState("Ocioso")
     const [msgM,setMsg] = useState('')
     const {user} = useContext(Contexto)
@@ -19,7 +19,7 @@ export default function ProdList(){
         setStatus("Executando")
         fetch(url,{method:'GET'}).then((resp)=>{
             return resp.json().then((resposta)=>{
-                setListProd(resposta)
+                setListFunc(resposta)
                 setStatus("Ocioso")
             })
         }).catch((erro)=>{
@@ -49,21 +49,21 @@ export default function ProdList(){
     }
     return(
         <div>
-            {listProd.map((prod)=>{
+            {listFunc.map((fun)=>{
                 
-                const blob = new Blob([Buffer.from(prod.fotoM)])
-                const prodPath=URL.createObjectURL(blob)
+                const blob = new Blob([Buffer.from(fun.fotoM)])
+                const funPath=URL.createObjectURL(blob)
                 return(
-                <div style={{textAlign:"justify"}} key={prod.cod}>
+                <div style={{textAlign:"justify",padding:'20px 100px 0px 100px'}} key={fun.cod}>
                     <div style={{display:"flex"}}>
-                    <img alt={prod.nome} src={prodPath} height={'150px'}></img>
+                    <img src={funPath} height={'150px'} alt={fun.nome}></img>
                     <div style={{paddingLeft:'20px'}}>
-                    <h2>{prod['nome']}</h2>
-                    <p>{prod.desc}</p><br/>
+                    <h2>{fun['nome']}</h2>
+                    <p>{fun.desc}</p><br/>
                     
                     <br/>
                     </div>
-                    {user.nome!==''?<button style={{height:'30px',margin:'50px'}}>algo</button>:null}
+                    {/*user.nome!==''?<button style={{height:'30px',margin:'50px'}}>algo</button>:null*/}
                     
                     </div>
                     
@@ -72,7 +72,7 @@ export default function ProdList(){
                 </div>
                 )
             })}
-            {user.nome!==''?<button>algo2</button>:null}
+            {/*user.nome!==''?<button>algo2</button>:null*/}
         </div>
     );
 }

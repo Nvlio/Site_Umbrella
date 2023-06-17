@@ -26,6 +26,7 @@ export function Navibar(props) {
                                 <LinkContainer to={"/Jobs"}><NavDropdown.Item eventKey="1.3">Vagas</NavDropdown.Item></LinkContainer>
                                 <NavDropdown.Divider />
                                 <LinkContainer to={"/Contact"}><NavDropdown.Item eventKey="1.4">Contato</NavDropdown.Item></LinkContainer>
+                                {user.nome!==''?<LinkContainer to={"/Update"}><NavDropdown.Item eventKey="1.5">Editar</NavDropdown.Item></LinkContainer>:null}
                             </NavDropdown>
                         </Nav>
                         <div style={{ width: '80%' }}></div>

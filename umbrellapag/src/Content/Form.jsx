@@ -23,7 +23,7 @@ export  class FormCad extends React.Component {
             Tel: ['Numero de telefone', 'escreva seu telefone (99)99999-9999'],
             Idade: ['Sua faixa etaria', '18-20', '20-25', '25-30', '30>'],
             noti: ['Quer receber notificações', 'radio', 2, 'sim', 'nao'],
-            values: { nome: 'a', email: '', senha: '', telefone: '', idade: '18-20', notificacao: 'option1' }
+            values: { nome: '', email: '', senha: '', telefone: '', idade: '18-20', notificacao: 'option1' }
         }
     }
 

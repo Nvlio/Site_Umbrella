@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import objRota from './rota/rotas.js'
+import objRota from './rota/rotasObj.js'
 
 ///inicia as constantes basicas host,porta tempo e inicia o express
 const porta=4004

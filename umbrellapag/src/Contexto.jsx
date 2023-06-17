@@ -7,6 +7,7 @@ export function GlobalContexto(props){
         nome  : "",
         email : "",
         senha : "",
+        nivel : ""
     })
 
     return(

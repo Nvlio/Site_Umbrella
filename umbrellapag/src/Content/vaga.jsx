@@ -2,14 +2,13 @@
 import { useState,useContext } from "react"
 import { useEffect } from "react"
 import { Carregar } from "../Elementos/funcionalidades"
-import {Buffer} from "buffer"
 import { Contexto } from "../Contextualizacao.jsx"
 
 
-export default function ProdList(){
+export default function VagaList(){
     
-    const url ="http://www.localhost:2023/Objects"
-    const [listProd,setListProd] = useState([])
+    const url ="http://www.localhost:2023/empregos"
+    const [listJobs,setListJobs] = useState([])
     const [status,setStatus] = useState("Ocioso")
     const [msgM,setMsg] = useState('')
     const {user} = useContext(Contexto)
@@ -19,7 +18,7 @@ export default function ProdList(){
         setStatus("Executando")
         fetch(url,{method:'GET'}).then((resp)=>{
             return resp.json().then((resposta)=>{
-                setListProd(resposta)
+                setListJobs(resposta)
                 setStatus("Ocioso")
             })
         }).catch((erro)=>{
@@ -49,17 +48,14 @@ export default function ProdList(){
     }
     return(
         <div>
-            {listProd.map((prod)=>{
-                
-                const blob = new Blob([Buffer.from(prod.fotoM)])
-                const prodPath=URL.createObjectURL(blob)
+            {listJobs.map((job)=>{
                 return(
-                <div style={{textAlign:"justify"}} key={prod.cod}>
+                <div style={{textAlign:"justify"}} key={job.cod}>
                     <div style={{display:"flex"}}>
-                    <img alt={prod.nome} src={prodPath} height={'150px'}></img>
                     <div style={{paddingLeft:'20px'}}>
-                    <h2>{prod['nome']}</h2>
-                    <p>{prod.desc}</p><br/>
+                    <h2>{job['nome']}</h2>
+                    <p>{job.desc}</p><br/>
+                    <p>{job.salario}</p>
                     
                     <br/>
                     </div>
