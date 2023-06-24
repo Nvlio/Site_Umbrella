@@ -1,4 +1,5 @@
 import modObj from "../modelo/objMod.js"
+import imagectrl from "./ImgCtrl.js"
 
 //classe que permite realizar metodos para cada requisição feita ao servidor
 export default class objectCtrl {
@@ -31,11 +32,11 @@ export default class objectCtrl {
             const body = req.body;
             const nome = body.nome;
             const desc = body.desc;
-            const fotoM = body.fotoM;
+            const valor = body.valor;
 
 
             if (nome, desc) {
-                const prod = new modObj(nome, desc, fotoM, req.params.id)
+                const prod = new modObj(nome, desc, req.params.id, valor)
                 prod.atualizaDados().then((resposta) => {
                     return resp.json(resposta)
                 })
@@ -52,11 +53,11 @@ export default class objectCtrl {
             const body = req.body;
             const nome = body.nome;
             const desc = body.desc;
-            const fotoM = body.fotoM;
             const cod = body.cod;
+            const valor = body.dif;
 
             if (nome, desc, fotoM, cod) {
-                const Prod = new modObj(nome, desc, fotoM, cod)
+                const Prod = new modObj(nome, desc ,cod, valor)
                 Prod.adicionarDados().then((resposta) => {
                     return resp.json(resposta)
                 })
@@ -66,7 +67,7 @@ export default class objectCtrl {
 
     async DEL(req, resp) {
         if (req.method == "DELETE") {
-            const prod = new modObj(null, null, null, req.params.id)
+            const prod = new modObj(null, null, req.params.id, null)
             prod.excluirDados().then((resposta) => {
                 return resp.json(resposta)
             })

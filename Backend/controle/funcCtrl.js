@@ -5,7 +5,7 @@ export default class funcCtrl {
     async GET(req, resp) {
         console.log('chamou')
         if (req.method == "GET") {
-            const prod = new modfunc(null, null, null, null,null)
+            const prod = new modfunc(null, null, null, null)
             prod.pegarDados().then((resposta) => {
                 console.log(resposta)
                 return resp.json(resposta)
@@ -17,7 +17,7 @@ export default class funcCtrl {
 
     async GETID(req, resp) {
         if (req.method = "GET") {
-            const prod = new modfunc(req.params.nome, null, null, null,null)
+            const prod = new modfunc(req.params.nome, null, null, null)
             prod.pegardadosNome().then((resposta) => {
                 console.log(resposta)
                 return resp.json(resposta)
@@ -32,12 +32,11 @@ export default class funcCtrl {
             const body = req.body;
             const nome = body.nome;
             const desc = body.desc;
-            const fotoM = body.fotoM;
-            const nvl = body.nvl;
+            const nvl = body.dif;
 
 
             if (nome, desc) {
-                const prod = new modfunc(nome, desc, fotoM, req.params.id,nvl)
+                const prod = new modfunc(nome, desc, req.params.id,nvl)
                 prod.atualizaDados().then((resposta) => {
                     return resp.json(resposta)
                 })
@@ -54,12 +53,11 @@ export default class funcCtrl {
             const body = req.body;
             const nome = body.nome;
             const desc = body.desc;
-            const fotoM = body.fotoM;
-            const cod = body.cod;
-            const nvl = body.nvl;
+            //lembra altera o nvl para dif
+            const nvl = body.dif;
 
-            if (nome, desc, fotoM, cod) {
-                const Prod = new modfunc(nome, desc, fotoM, cod,nvl)
+            if (nome, desc) {
+                const Prod = new modfunc(nome, desc,nvl)
                 Prod.adicionarDados().then((resposta) => {
                     return resp.json(resposta)
                 })
@@ -69,7 +67,7 @@ export default class funcCtrl {
 
     async DEL(req, resp) {
         if (req.method == "DELETE") {
-            const prod = new modfunc(null, null, null, req.params.id,null)
+            const prod = new modfunc(null, null, req.params.id,null)
             prod.excluirDados().then((resposta) => {
                 return resp.json(resposta)
             })

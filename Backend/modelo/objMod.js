@@ -6,14 +6,12 @@ export default class modObj{
     
     #nome
     #desc
-    #fotoM
     #codProd
     #valor
 
-    constructor(nome,desc,fotmain,codprod,valor){
+    constructor(nome,desc,codprod,valor){
         this.#nome=nome
         this.#desc=desc
-        this.#fotoM=fotmain
         this.#codProd=codprod
         this.#valor=valor
     }
@@ -42,9 +40,6 @@ export default class modObj{
         this.#desc=nvalu
         return this.#desc
     }
-    get fotoM(){
-        return this.#fotoM
-    }
     get codprod(){
         return this.#codProd
     }
@@ -53,7 +48,6 @@ export default class modObj{
         return{
             "nome":this.#nome,
             "desc":this.#desc,
-            "fotoM":this.#fotoM,
             "cod":this.#codProd,
             "valor":this.#valor
         }
@@ -75,13 +69,14 @@ export default class modObj{
 
     async atualizaDados(){
         const DataBase = new dbObj()
-        const db = await DataBase.PUT(this.#nome,this.#desc,this.#fotoM,this.#codProd,this.#valor)
+        const db = await DataBase.PUT(this.#nome,this.#desc,this.#codProd,this.#valor)
         return db
     }
 
     async adicionarDados(){
+        
         const DataBase = new dbObj()
-        const db = DataBase.POST(this.#nome,this.#desc,this.#fotoM,this.#codProd,this.#valor)
+        const db = DataBase.POST(this.#nome,this.#desc,this.#codProd,this.#valor)
         return db
     }
 

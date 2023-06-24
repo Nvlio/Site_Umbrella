@@ -6,16 +6,14 @@ export default class modFunc{
     
     #nome
     #desc
-    #fotoM
-    #codProd
+    #cod
     #nivel
 
 
-    constructor(nome,desc,fotmain,codprod,nivel){
+    constructor(nome,desc,nivel,cod){
         this.#nome=nome
         this.#desc=desc
-        this.#fotoM=fotmain
-        this.#codProd=codprod
+        this.#cod=cod
         this.#nivel=nivel
     }
 
@@ -42,19 +40,15 @@ export default class modFunc{
         this.#desc=nvalu
         return this.#desc
     }
-    get fotoM(){
-        return this.#fotoM
-    }
-    get codprod(){
-        return this.#codProd
+    get cod(){
+        return this.#cod
     }
 
     ToJson(){
         return{
             "nome":this.#nome,
             "desc":this.#desc,
-            "fotoM":this.#fotoM,
-            "cod":this.#codProd,
+            "cod":this.#cod,
             "nivel":this.#nivel
         }
     }
@@ -75,18 +69,18 @@ export default class modFunc{
 
     async atualizaDados(){
         const DataBase = new dbFunc()
-        const db = await DataBase.PUT(this.#nome,this.#desc,this.#fotoM,this.#codProd)
+        const db = await DataBase.PUT(this.#nome,this.#desc,this.#cod,this.#nivel)
         return db
     }
 
     async adicionarDados(){
         const DataBase = new dbFunc()
-        const db = DataBase.POST(this.#nome,this.#desc,this.#fotoM,this.#codProd)
+        const db = DataBase.POST(this.#nome,this.#desc,this.#nivel)
         return db
     }
 
     async excluirDados(){
         const DataBase = new dbFunc()
-        const db = DataBase.DELETE(this.#codProd)
+        const db = DataBase.DELETE(this.#cod)
         return db
 }}
