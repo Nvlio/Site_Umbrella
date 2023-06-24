@@ -87,7 +87,7 @@ export default function Elem(props) {
           {props.text}
         </button>
       );
-    }/* else {
+    } else {
       return (
         <div key={"chega"}>
           <br />
@@ -95,9 +95,9 @@ export default function Elem(props) {
           <br />
           <input
             onChange={ChangeHandle}
-            type="file"
+            type={props.type}
             id="imagem"
-            name="imagem"
+            name={props.name}
             accept="image/*"
             required
           />
@@ -105,5 +105,5 @@ export default function Elem(props) {
           <br />
         </div>
       );
-    }*/
+    }
   }

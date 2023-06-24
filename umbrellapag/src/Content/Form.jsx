@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { Carregar,path } from "../Elementos/funcionalidades.jsx";
+import { Carregar,} from "../Elementos/funcionalidades.jsx";
 import Elem from "../Elementos/Reutilizavel.jsx";
 import "../App.css"
 import { Contexto } from "../Contextualizacao.jsx";

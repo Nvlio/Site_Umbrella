@@ -117,11 +117,11 @@ export function Atualizar() {
     
     return (
         <div>
-            {user.nome == "" ? <Pag404 /> :
+            {user.nome === "" ? <Pag404 /> :
                 <div>
                     <Navibar />
 
-                    <Pagina title="Atualizar" desc="Atualização">
+                    <Pagina title="Adicionar" desc="Adicione um produto,funcionario ou vaga de emprego nos servidores">
                         <button onClick={() => HandleEstado('Item')}>Item</button>
                         <button onClick={() => HandleEstado('Funcionario')}>funcionario</button>
                         <button onClick={() => HandleEstado('Vagas')}>vagas</button>
