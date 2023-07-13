@@ -56,7 +56,7 @@ export default class objectCtrl {
             const cod = body.cod;
             const valor = body.dif;
 
-            if (nome, desc, fotoM, cod) {
+            if (nome, desc, valor) {
                 const Prod = new modObj(nome, desc ,cod, valor)
                 Prod.adicionarDados().then((resposta) => {
                     return resp.json(resposta)

@@ -10,10 +10,19 @@ export default class modImg {
     #pcod
 
 
-    constructor(nome, funcod, prodcod) {
+    constructor(nome, funcod, prodcod, cod) {
         this.#nome = nome
-        this.#fcod = funcod
-        this.#pcod = prodcod
+
+        if (funcod == "undefined") {
+            this.#fcod = null
+        } else { this.#fcod = funcod }
+
+        if (prodcod == 'undefined') {
+            this.#pcod = null
+        } else {
+            this.#pcod = prodcod
+        }
+        this.#cod = cod
     }
 
     get nome() {
@@ -55,20 +64,21 @@ export default class modImg {
 
     async pegardadosId() {
         const DataBase = new dbImg()
-        const db = await DataBase.GETID(this.#pcod,this.#fcod)
+        const db = await DataBase.GETID(this.#pcod, this.#fcod)
         console.log(db.nome)
         return db
     }
 
     async adicionarDados() {
+
         const DataBase = new dbImg()
-        const db = DataBase.POST(this.#nome['1'], this.#fcod, this.#pcod)
+        const db = DataBase.POST(this.#nome, this.#fcod, this.#pcod)
         return db
     }
 
     async excluirDados() {
         const DataBase = new dbImg()
-        const db = DataBase.DELETE(this.#cod)
+        const db = DataBase.DELETE(this.#fcod, this.#pcod, this.#cod)
         return db
     }
 }

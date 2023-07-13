@@ -16,6 +16,20 @@ export default function FunList() {
     let contador=0; 
     const { user } = useContext(Contexto)
 
+    function toBlob(file,tipo){
+        console.log('função blob',file,tipo)
+        const byteC = atob(file)
+        const byteN = new Array(byteC.length)
+        for (let i=0;i<byteC.length;i++){
+            byteN[i]=byteC.charCodeAt(i);
+        }
+        const byteA= new Uint8Array(byteN)
+        const blob = new Blob([byteA],{type:`image/${tipo}`})
+        
+        console.log(blob)
+        return blob
+    }
+
     useEffect(() => {
         try {
             setStatus("Executando")
@@ -34,31 +48,36 @@ export default function FunList() {
     }, [])
 
     useEffect(() => {
+        //função que add os itens
         const imgfetch = async () => {
             const promise = listFunc.map(async (fun) => {
-                let resp = await fetch(`${url}imagem/${fun.cod}-func`, { method: 'GET' })
-                return await resp.blob()
+                console.log(fun.cod)
+                const resp = await fetch(`${url}imagem/${fun.cod}-func`, { method: 'GET' })
+                return await resp.json()
             })
-            const listUrl = await Promise.all(promise)
-            return listUrl
 
+            const urls = Promise.all(promise)
+            return urls
         }
-        imgfetch().then((urls => {
-            return urls.map((url) => {
-                return URL.createObjectURL(url)
+        imgfetch().then((res => {
+            let urls = res.map((Link) => {
+                
+            let valor = toBlob(Link['img'],Link['type'])
+                return { id: Link['id'], image: URL.createObjectURL(valor)}
             })
-        })).then((url => {
-            setListImg(url)
+            console.log('aa',urls)
+            setListImg(urls)
             setStatus('ocioso')
         }))
-
+        /*.then(())
+        .then(())*/
 
 
 
 
     }, [listFunc])
 
-    if (status === "Executando") {
+    if (status === "Executando"  || listImg.length === 0) {
         return (
             <div style={{ textAlign: "center" }}>
                 <Carregar></Carregar>
@@ -82,7 +101,7 @@ export default function FunList() {
                     <div style={{ textAlign: "justify", padding: '20px 100px 0px 100px' }} key={fun.cod}>
 
                         <div style={{ display: "flex" }}>
-                            <img src={listImg[contador-1]}></img>
+                            <img src={listImg[contador-1]['image']} alt={fun.nome} data-id={listImg[contador-1]['id']}></img>
                             <div style={{ paddingLeft: '20px' }}>
                                 <h2>{fun['nome']}</h2>
                                 <p>{fun.desc}</p><br />

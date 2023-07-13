@@ -3,6 +3,7 @@ import funcRota from "./rota/rotafunc.js";
 import objRota from "./rota/rotasObj.js";
 import vagaRota from "./rota/rotaVagas.js";
 import imgrota from "./rota/rotas.js";
+import rotaCont from "./rota/rotaCont.js";
 import cors from 'cors'
 import imagectrl from "./controle/ImgCtrl.js";
 
@@ -22,6 +23,7 @@ app.use('/Objects',objRota)
 app.use('/funcionarios',funcRota)
 app.use('/empregos',vagaRota)
 app.use('/imagem',imgrota)
+app.use('/contas',rotaCont)
 
 
 

@@ -46,6 +46,7 @@ export default class dbFunc {
         }
     }
 
+    //ao postar um novo funcionario ele retorna o codigo dele para ser usado na imagem 
     async RESP(tabela) {
         const conexao = await connect();
         const sql = `SELECT codigo FROM ${tabela} ORDER BY codigo DESC LIMIT 1`;

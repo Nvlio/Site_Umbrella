@@ -76,7 +76,7 @@ export default class modObj{
     async adicionarDados(){
         
         const DataBase = new dbObj()
-        const db = DataBase.POST(this.#nome,this.#desc,this.#codProd,this.#valor)
+        const db = DataBase.POST(this.#nome,this.#desc,this.#valor)
         return db
     }
 

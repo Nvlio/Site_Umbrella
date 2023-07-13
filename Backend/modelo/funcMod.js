@@ -52,7 +52,7 @@ export default class modFunc{
             "nivel":this.#nivel
         }
     }
-    
+    //add mais campos (no database adicionar campo de salario)
 
     async pegarDados(){
         console.log('chamei')

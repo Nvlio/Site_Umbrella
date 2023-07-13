@@ -46,15 +46,24 @@ export default class dbObj {
         }
     }
 
-    async POST(nome, desc, cod,value){
+    async RESP(tabela) {
+        const conexao = await connect();
+        const sql = `SELECT cod FROM ${tabela} ORDER BY cod DESC LIMIT 1`;
+        const valor = await conexao.query(sql)
+        console.log(valor['0']['0'].cod)
+        return valor['0']['0'].cod
+    }
+    
+    async POST(nome, desc, value){
         try{
             const conexao = await connect()
-            const sql = "INSERT INTO produtos (nome,descricao,foto,cod,valor) VALUES (?,?,?,?)"
-            const values = [nome,desc,cod,value]
+            const sql = "INSERT INTO produtos (nome,descricao,valor) VALUES (?,?,?)"
+            const values = [nome,desc,value]
             console.log(values)
-
             await conexao.query(sql,values)
-            return {status:true,message:"produto adicionado!"}
+            const resp = await this.RESP('produtos')
+            console.log('RESPOSTA:', resp)
+            return { status: true, message: "Funcionario adicionado!", codigo: resp }
         }catch(erro){
             console.log(erro)
             return {status:false,message:erro}

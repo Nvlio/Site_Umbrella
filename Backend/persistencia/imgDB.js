@@ -10,73 +10,80 @@ export default class dbImg {
         const [list] = await conexao.query(sql)
         const lista = []
         for (let row of list) {
-            const itemprod = new modFunc(row.Nome, row.Descricao, row.codigo,row.nivel)
+            const itemprod = new modFunc(row.Nome, row.Descricao, row.codigo, row.nivel)
             lista.push(itemprod.ToJson())
         }
         return lista
     }
 
-    async GETID(pcod,fcod) {
-        try{
-        const conexao = await connect()
-        let valor
-        let field
-        if(pcod){
-            valor = [pcod]
-            field='prod'
-        }else if(fcod){
-            valor = [fcod]
-            field='func'
+    async GETID(pcod, fcod) {
+        try {
+            const conexao = await connect()
+            let valor
+            let field
+            if (pcod) {
+                valor = [pcod]
+                field = 'prod'
+            } else if (fcod) {
+                valor = [fcod]
+                field = 'func'
+            }
+            const sql = `SELECT * FROM imagens where ${field} = ?`
+
+            const [lista] = await conexao.query(sql, valor)
+            const list = []
+            for (let row of lista) {
+                const itemimg = new modImg(row.imagem, row.func, row.prod, row.cod)
+                list.push(itemimg.ToJson())
+                console.log(itemimg.ToJson())
+            }
+            console.log(list)
+            return list
+        } catch (erro) {
+            return { status: false, message: erro }
         }
-        const sql = `SELECT * FROM imagens where ${field} = ?`
-        
-        const [lista] = await conexao.query(sql, valor)
-        const list = []
-        for (let row of lista) {
-            const itemimg = new modImg(row.imagem, row.id, row.func, row.prod)
-            list.push(itemimg.ToJson())
-            console.log(itemimg.ToJson())
-        }
-        console.log(list)
-        return list
-    }catch(erro){
-        return {status:false,message:erro}
-    }
     }
 
-    async PUT(nome, desc, cod,nivel) {
-        console.log(nome,desc,cod,nivel)
+    async PUT(nome, desc, cod, nivel) {
+        console.log(nome, desc, cod, nivel)
         try {
             const conexao = await connect()
             const sql = "UPDATE funcionario SET nome=?, descricao=?,nivel=? WHERE codigo=?"
-            const values = [nome, desc,  cod,nivel]
+            const values = [nome, desc, cod, nivel]
             await conexao.query(sql, values)
             return { status: true, message: `Funcionario ${nome} atualizado com sucesso!` }
-        }catch(erro){
-            return {status:false,message:(erro)}
+        } catch (erro) {
+            return { status: false, message: (erro) }
         }
     }
 
-    async POST(nome, fun,  pro){
-        try{
+    async POST(nome, fun, pro) {
+        try {
             const conexao = await connect()
             const sql = "INSERT INTO imagens (imagem,func,prod) VALUES (?,?,?)"
-            const values = [nome,fun,pro]
+            const values = [nome, fun, pro]
             console.log(values)
 
-            await conexao.query(sql,values)
-            return {status:true,message:"Funcionario adicionado!"}
-        }catch(erro){
+            await conexao.query(sql, values)
+            return { status: true, message: "Funcionario adicionado!" }
+        } catch (erro) {
             console.log(erro)
-            return {status:false,message:erro}
+            return { status: false, message: erro }
         }
     }
 
-    async DELETE(cod){
+    async DELETE(fcod, pcod, cod) {
         const conexao = await connect()
+        let values;
         const sql = "DELETE FROM funcionario WHERE codigo = ?"
-        const values = [cod]
-        await conexao.query(sql,values)
-        return {status:true,message:"funcionario Apagado!"}
+        if (fcod != null) {
+            values = [fcod]
+        } else if (pcod != null) {
+            values = [pcod]
+        } else {
+            values = [cod]
+        }
+        await conexao.query(sql, values)
+        return { status: true, message: "funcionario Apagado!" }
     }
 };

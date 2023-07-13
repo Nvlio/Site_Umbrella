@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { Carregar, } from "../Elementos/funcionalidades.jsx";
 import Elem from "../Elementos/Reutilizavel.jsx";
 import "../App.css"
@@ -8,11 +8,12 @@ import { Navigate } from "react-router-dom";
 
 
 
+
 export default class Edicao extends React.Component {
 
     constructor(props) {
         super(props)
-
+        this.formData = new FormData();
         this.state = {
             estado: props.estado,
             nome: ["nome"],
@@ -26,7 +27,8 @@ export default class Edicao extends React.Component {
             values: {
                 nome: '',
                 desc: '',
-                foto: ['', ''],
+                nomeImg:'',
+                foto:'',
                 Vagas: '',
                 Funcionario: '',
                 Item: ''
@@ -52,22 +54,53 @@ export default class Edicao extends React.Component {
         }
     }
 
-    handleFiles = (event) => {
-        const file = event.target.files[0];
-        const fName=file.name
+    /*toBlob = (file, tipo) => {
+        console.log('função blob', file, tipo)
+        const byteC = atob(file)
+        const byteN = new Array(byteC.length)
+        for (let i = 0; i < byteC.length; i++) {
+            byteN[i] = byteC.charCodeAt(i);
+        }
+        const byteA = new Uint8Array(byteN)
+        const blob = new Blob([byteA], { type: `image/${tipo}` })
 
+        console.log('arquivo blob', blob)
+        return blob
+    }*/
+
+    handleFiles = (event) => {
+
+        
+        const file = event.target.files[0];
+        const fName = file.name
         this.setState(prevState => ({
             values: {
                 ...prevState.values,
-                foto: [file,fName]
+                nomeImg:[fName]
             }
         }))
+        const reader = new FileReader()
+
+        reader.onload = (event) => {
+            /*const B64 = this.toBlob(event.target.result.split(',')[1], event.target.result.match(/\/(\w+);/ig)[0]);
+            console.log(B64)*/
+            const B64 = event.target.result
+            this.setState(prevState => ({
+                values: {
+                    ...prevState.values,
+                    foto:[B64]
+                }
+            }))
+        }
+
+        reader.readAsDataURL(file)
 
     }
 
 
     Add(event, obj) {
         event.preventDefault()
+
         let codF;
         let codP;
         let path = this.state[`${obj}`][2]
@@ -80,7 +113,7 @@ export default class Edicao extends React.Component {
         }).then((resp) => {
             return resp.json()
         }).then((resposta) => {
-            console.log(resposta.codigo)
+            console.log('resp=>', resposta.codigo)
             if (path !== 'Vagas') {
                 if (path === 'funcionarios') {
                     console.log('funfa')
@@ -89,12 +122,14 @@ export default class Edicao extends React.Component {
                     console.log(path)
                     codP = resposta.codigo
                 }
+                console.log(this.state.values['foto'])
+
+                this.formData.append('imagem',this.state.values['foto'])
+                this.formData.append('nome',this.state.values['nomeImg'])
+                this.formData.append('func',codF)
+                this.formData.append('prod',codP)
                 fetch(`${this.state.url}imagem`, {
-                    method: 'POST', headers: { 'Content-Type': "application/json" }, body: JSON.stringify({
-                        imagem: this.state.values['foto'],
-                        func: codF,
-                        prod: codP,
-                    })
+                    method: 'POST',body: this.formData
                 })
             }
 
@@ -111,7 +146,7 @@ export default class Edicao extends React.Component {
                 <div>
                     <br></br>
                     <h1>{this.state.estado}</h1>
-                    <form className="Formu" onSubmit={(event) => this.Add(event, this.state.estado)}>
+                    <form className="Formu" onSubmit={(event) => this.Add(event, this.state.estado)} encType="multipart/form-data">
                         <fieldset style={{ border: '1px solid black', borderRadius: "10px", padding: "10px", margin: "10px" }}>
                             <Elem fun="Inp" type='' name="nome" Lista={this.state.nome} ext="Nome" onChange={this.handleChange} />
                             <Elem fun="Inp" type='' name="desc" Lista={this.state.descricao} ext="desc" onChange={this.handleChange} />
