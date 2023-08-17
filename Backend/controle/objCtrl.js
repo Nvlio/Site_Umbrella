@@ -27,6 +27,7 @@ export default class objectCtrl {
         }
     }
 
+    //testar no fds
     async PUT(req, resp) {
         if (req.method == "PUT" && req.is("application/json")) {
             const body = req.body;

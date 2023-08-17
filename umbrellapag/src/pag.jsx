@@ -8,6 +8,7 @@ import { Navibar } from "./Elementos/nav.jsx"
 import { FormCad, FormLog, } from "./Content/Form"
 import { Contexto } from "./Contextualizacao"
 import "./style/Style.css"
+import { useParams } from "react-router-dom"
 
 //pag responsavel pelo inicio do site
 export function PagHome() {
@@ -114,7 +115,7 @@ export function Atualizar() {
     }
 
 
-    
+
     return (
         <div>
             {user.nome === "" ? <Pag404 /> :
@@ -125,11 +126,58 @@ export function Atualizar() {
                         <button onClick={() => HandleEstado('Item')}>Item</button>
                         <button onClick={() => HandleEstado('Funcionario')}>funcionario</button>
                         <button onClick={() => HandleEstado('Vagas')}>vagas</button>
-                        <Edicao estado={estado}/>
+                        <Edicao estado={estado} />
                     </Pagina>
                 </div>
 
             }
+        </div>
+    )
+}
+
+
+export function Prod() {
+
+
+    const { Id } = useParams()
+    const { item } = useContext(Contexto)
+    const [foto,setFoto] = useState()
+    
+    console.log(item['img'])
+
+    function toBlob(file, tipo) {
+        const byteC = atob(file)
+        const byteN = new Uint8Array(byteC.length)
+        for (let i = 0; i < byteC.length; i++) {
+            byteN[i] = byteC.charCodeAt(i);
+        }
+        const byteA = new Uint8Array(byteN)
+        const blob = new Blob([byteA], { type: `image/${tipo}` })
+
+        console.log('retorno',blob)
+        return blob
+    }
+
+    useEffect(() => {
+        fetch(`http://www.localhost:2023/imagem/${Id}-prod`, { method: 'GET' }).then((resp=>{
+            return resp.json()
+        })).then((respo=>{
+            const x = toBlob(respo['img'],respo['type'])
+            const xurl = URL.createObjectURL(x)
+            setFoto(xurl)
+        }
+            ))
+            
+    }, [])
+
+    
+    //se vira com a imagem seu merda
+    return (
+        <div>
+            <Navibar />
+            <Pagina title={`${item.nome}:${Id}`} desc={item.desc}>
+                <img src={foto} alt="imagem_exemplo" />
+            </Pagina>
         </div>
     )
 }

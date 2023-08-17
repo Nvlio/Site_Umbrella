@@ -10,8 +10,15 @@ export function GlobalContexto(props){
         nivel : ""
     })
 
+    const [item,setItem] = useState({
+        nome:'',
+        descrição:'',
+        img:''
+    })
+
+    //SEMPRE QUE ADD novo  contexto add
     return(
-        <Contexto.Provider value={{user,setUser}}>
+        <Contexto.Provider value={{user,setUser,item,setItem}}>
             {props.children}
         </Contexto.Provider>
     )

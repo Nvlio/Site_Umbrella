@@ -38,18 +38,9 @@ export class FormCad extends React.Component {
         }
     }
 
-    //testar fim de semana
+    //criar a função cadastro
+    //Retornar para a pagina central (só copiar do login)
     Cadastrar() {
-        fetch(this.url, {
-            method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({
-                nome: this.state.values.nome,
-                email: this.state.values.email,
-                senha: this.state.values.senha,
-                nivel: this.state.values.nivel,
-            })
-        }).catch((err => {
-            alert(err)
-        }))
     }
 
     render() {
@@ -57,13 +48,13 @@ export class FormCad extends React.Component {
             <div>
                 <form className="Formu">
                     <fieldset style={{ border: '1px solid black', borderRadius: "10px", padding: "10px", margin: "10px" }}>
-                        <Elem fun="Inp" type='' name="nome" Lista={this.state.Nome} ext="Nome" onChange={this.handleChange} />
-                        <Elem fun="Inp" type='' name="email" Lista={this.state.Email} ext="Email" onChange={this.handleChange} />
-                        <Elem fun="Inp" type='password' name="senha" Lista={this.state.Senha} ext="senha" onChange={this.handleChange} />
-                        <Elem fun="Inp" type='password' name="confirmse" Lista={this.state.Confirma} ext="senha2" onChange={this.handleChange} />
-                        <Elem fun="Inp" type='tel' name="telefone" length='15' Lista={this.state.Tel} ext="tel" onChange={this.handleChange} />
+                        <Elem fun="Inp" type='' name="nome" font={this.state.Nome[0]} place={this.state.Nome[1]} /*Lista={this.state.Nome}*/ ext="Nome" onChange={this.handleChange} />
+                        <Elem fun="Inp" type='' name="email" font={this.state.Email[0]} place={this.state.Email[1]} ext="Email" onChange={this.handleChange} />
+                        <Elem fun="Inp" type='password' name="senha" font={this.state.Senha[0]} place={this.state.Senha[1]} ext="senha" onChange={this.handleChange} />
+                        <Elem fun="Inp" type='password' name="confirmse" font={this.state.Confirma[0]} place={this.state.Confirma[1]}  ext="senha2" onChange={this.handleChange} />
+                        <Elem fun="Inp" type='tel' name="telefone" length='15' font={this.state.Tel[0]} place={this.state.Tel[1]} ext="tel" onChange={this.handleChange} />
                         <div style={{ border: '1px solid black', borderRadius: "10px", padding: "10px", margin: "20px 25% 20px 25% " }}>
-                            <Elem fun="Sel" name="idade" Lista={this.state.Idade} onChange={this.handleChange} />
+                            <Elem fun="Sel" name="idade"  Lista={this.state.Idade} onChange={this.handleChange} />
                             <Elem fun="Check" name="not" Lista={this.state.noti} onChange={this.handleChange} />
                         </div>
                         <Elem fun="But" type='reset' cor='red' text='Resetar' />
@@ -184,6 +175,7 @@ export class FormLog extends React.Component {
 
     }
 
+    //função que leva de volta após 3 segs
     render() {
         if (this.state.values.logou>0) {
             return (
@@ -200,6 +192,7 @@ export class FormLog extends React.Component {
             )
         } else {
             return (
+                //pega dados e usa sem precisar de props
                 <Contexto.Consumer>
                     {value => {
                         const { user, setUser } = value
@@ -207,8 +200,8 @@ export class FormLog extends React.Component {
                             <div>
                                 <form className="Formu" onSubmit={event => this.Verificar(event, setUser)}>
                                     <fieldset style={{ border: '1px solid black', borderRadius: "10px", padding: "10px", margin: "10px" }}>
-                                        <Elem fun="Inp" type='' name="nome" Lista={this.state.Nome} ext="Nome" onChange={this.handleChange} />
-                                        <Elem fun="Inp" type='password' name="senha" Lista={this.state.Senha} ext="senha" onChange={this.handleChange} />
+                                        <Elem fun="Inp" type='' name="nome" font={this.state.Nome[0]} place={this.state.Nome[1]}  ext="Nome" onChange={this.handleChange} />
+                                        <Elem fun="Inp" type='password' name="senha" font={this.state.Senha[0]} place={this.state.Senha[1]} ext="senha" onChange={this.handleChange} />
                                         {this.state.values.logou<0?<p>Conta não encontrada confira se os dados estão corretos</p>:null}
                                         <Elem fun="But" type='submit' cor='green' text='Enviar' />
                                     </fieldset>

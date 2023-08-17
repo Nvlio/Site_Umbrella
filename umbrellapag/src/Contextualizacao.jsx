@@ -9,8 +9,15 @@ export function GlobalContexto(props){
         senha : "",
     })
 
+    const [item,setItem] = useState({
+        nome:'',
+        descrição:'',
+        img:''
+    })
+
+
     return(
-        <Contexto.Provider value={{user,setUser}}>
+        <Contexto.Provider value={{user,setUser,item,setItem}}>
             {props.children}
         </Contexto.Provider>
     )

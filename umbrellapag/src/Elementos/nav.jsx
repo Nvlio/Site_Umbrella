@@ -9,6 +9,10 @@ import "../style/Bootsdef.css"
 import "../style/Style.css"
 
 
+/* barra de navegação do site */
+
+//mudar a imagem da lista para as 3 linhas serem o botão
+//adicionar botão que mostra lista de compras do carrinho
 export function Navibar(props) {
     const {user} = useContext(Contexto)
     return (

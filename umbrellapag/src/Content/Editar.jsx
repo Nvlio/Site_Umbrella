@@ -98,6 +98,9 @@ export default class Edicao extends React.Component {
     }
 
 
+    /*adiciona itens ao tipo especifico*/
+    
+    //adicionar alguma mensagem que confirme o envio    
     Add(event, obj) {
         event.preventDefault()
 
@@ -148,25 +151,25 @@ export default class Edicao extends React.Component {
                     <h1>{this.state.estado}</h1>
                     <form className="Formu" onSubmit={(event) => this.Add(event, this.state.estado)} encType="multipart/form-data">
                         <fieldset style={{ border: '1px solid black', borderRadius: "10px", padding: "10px", margin: "10px" }}>
-                            <Elem fun="Inp" type='' name="nome" Lista={this.state.nome} ext="Nome" onChange={this.handleChange} />
-                            <Elem fun="Inp" type='' name="desc" Lista={this.state.descricao} ext="desc" onChange={this.handleChange} />
-                            <Elem fun="Inp" type='' name="cod" Lista={this.state.cod} ext="cod" onChange={this.handleChange} />
+                            <Elem fun="Inp" type='' name="nome" font={this.state.nome} ext="Nome" onChange={this.handleChange} />
+                            <Elem fun="Inp" type='' name="desc" font={this.state.descricao} ext="desc" onChange={this.handleChange} />
+                            
                             <br />
                             {this.state.estado !== "Vagas" ?
                                 <input type="file" name="foto" onChange={this.handleFiles} /> : null}
                             <br /><br />
                             {this.state.estado === "Item" ?
                                 <div>
-                                    <Elem fun="Inp" type='' name="Item" Lista={this.state.Item} ext="valor" onChange={this.handleChange} />
+                                    <Elem fun="Inp" type='' name="Item" font={this.state.Item[0]} place={this.state.Item[1]} ext="valor" onChange={this.handleChange} />
                                 </div>
                                 : this.state.estado === "Vagas" ?
 
                                     <div>
-                                        <Elem fun="Inp" type='' name="Vaga" Lista={this.state.Vagas} ext="salario" onChange={this.handleChange} />
+                                        <Elem fun="Inp" type='' name="Vaga"font={this.state.Vagas[0]} place={this.state.Vagas[1]} ext="salario" onChange={this.handleChange} />
                                     </div>
                                     :
                                     <div>
-                                        <Elem fun="Inp" type='' name="Funcionario" Lista={this.state.Funcionario} ext="nivel" onChange={this.handleChange} />
+                                        <Elem fun="Inp" type='' name="Funcionario" font={this.state.Funcionario[0]} place={this.state.Funcionario[1]} ext="nivel" onChange={this.handleChange} />
                                     </div>
                             }
                             <Elem fun="But" type='reset' cor='red' text='Resetar' />
