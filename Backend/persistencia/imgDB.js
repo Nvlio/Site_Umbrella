@@ -1,5 +1,7 @@
 import connect from "./conexao.js";
 import modImg from "../modelo/imgMod.js";
+import fs from 'fs'
+import { rejects } from "assert";
 
 //classe responsavel para a comunicação e execução correta de dados vindos do sql
 export default class dbImg {
@@ -16,7 +18,7 @@ export default class dbImg {
         return lista
     }
 
-    async GETID(pcod, fcod) {
+    async GETID(pcod, fcod, cod) {
         try {
             const conexao = await connect()
             let valor
@@ -72,18 +74,41 @@ export default class dbImg {
         }
     }
 
+    //metodo que excluir arquivo 
+    async Exclude(name){
+        const path = 'D:/Portifolio/Site_Umbrella novo/fotos'
+            fs.unlink(`${path}/${name}`,(err)=>{
+                if(err){
+                    return {msg:'ocorreu um erro ao excluir foto'}
+                }else{
+                    return {msg:"imagem excluida com sucesso!"}
+                }
+            })
+        
+    }
+
+    //ao excluir verifica qual o codigo forneceido, ele recupera o nome e realiza a exclusaõa do arquivo referido
     async DELETE(fcod, pcod, cod) {
         const conexao = await connect()
         let values;
-        const sql = "DELETE FROM funcionario WHERE codigo = ?"
+        let code;
+        let name;
         if (fcod != null) {
+            code = 'func'
             values = [fcod]
+
         } else if (pcod != null) {
+            code = 'prod'
             values = [pcod]
+
         } else {
+            code='cod'
             values = [cod]
         }
+        name = await this.GETID(pcod,fcod,cod)
+        await this.Exclude(name[0]['nome'])
+        const sql = `DELETE FROM imagens WHERE ${code} = ?`
         await conexao.query(sql, values)
-        return { status: true, message: "funcionario Apagado!" }
+        return { status: true, message: "imagem Apagada!" }
     }
 };

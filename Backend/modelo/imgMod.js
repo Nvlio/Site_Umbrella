@@ -72,7 +72,7 @@ export default class modImg {
     async adicionarDados() {
 
         const DataBase = new dbImg()
-        const db = DataBase.POST(this.#nome, this.#fcod, this.#pcod)
+        const db = DataBase.POST(`${this.#pcod}-${this.#nome}`, this.#fcod, this.#pcod)
         return db
     }
 

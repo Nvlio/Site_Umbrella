@@ -21,12 +21,16 @@ export default class imagectrl {
                 imagem = new modImg(null, null, ans[0])
             }
             imagem.pegardadosId().then((resposta) => {
-                if (resposta['0'].nome == undefined) {
-                    return resp.json({ resposta: 'nenhuma foto encontrada' })
+                try {
+                    console.log(resposta['0'].nome)
+                    const filepath = path.join('D:', 'Portifolio', 'Site_Umbrella novo', 'fotos', resposta['0'].nome)
+                    resp.json({ id: resposta['0'].cod, img: toBASE64(filepath), type: resposta['0'].nome.split('.')[1] })
                 }
-                console.log(resposta['0'].nome)
-                const filepath = path.join('D:', 'Portifolio', 'Site_Umbrella novo', 'fotos', resposta['0'].nome)
-                resp.json({ id: resposta['0'].cod, img: toBASE64(filepath), type: resposta['0'].nome.split('.')[1] })
+                catch (error) {
+
+                    return resp.json({ resposta: 'nenhuma foto encontrada' })
+
+                }
             })
             return
         }
@@ -40,22 +44,22 @@ export default class imagectrl {
             let img = body.imagem;
             let func = body.func;
             let prod = body.prod;
-            if (typeof nome=='object'){
-                nome = nome[nome.length-1]
-                img = img[img.length-1]
-                func = func[func.length-1]
-                prod=prod[prod.length-1]
-            }else{
+            if (typeof nome == 'object') {
+                nome = nome[nome.length - 1]
+                img = img[img.length - 1]
+                func = func[func.length - 1]
+                prod = prod[prod.length - 1]
+            } else {
                 console.log(nome)
             }
-            
+
 
             const filepath = path.join('D:', 'Portifolio', 'Site_Umbrella novo', 'fotos')
-            console.log(img)
+            console.log(img) 
             const B64 = img.replace(/^data:image\/\w+;base64,/, '')
             const decode = Buffer.from(B64, 'base64')
-
-            fs.writeFile(path.join(filepath, nome), decode, 'binary', (err) => {
+            
+            fs.writeFile(path.join(filepath, `${prod}-${nome}`), decode, 'binary', (err) => {
                 if (err) {
                     resp.status(500).json({ 'message': 'erro' })
                     return
@@ -65,12 +69,14 @@ export default class imagectrl {
             })
 
 
-                if (nome) {
+            if (nome) {
                 const foto = new modImg(nome, func, prod)
                 foto.adicionarDados()
             }
         }
     };
+
+
 
     DELETE(req, resp) {
         if (req.method == 'DELETE') {

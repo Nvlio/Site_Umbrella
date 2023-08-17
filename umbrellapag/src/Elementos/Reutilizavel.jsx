@@ -9,7 +9,7 @@ export default function Elem(props) {
         <div key={"sla"}>
           <label>
             <font>
-              <font>{props.Lista[0]}</font>
+              <font>{props.font}</font>
             </font>
             <br />
           </label>
@@ -19,7 +19,7 @@ export default function Elem(props) {
             type={props.type}
             className="form-control"
             id="exampleInputPassword1"
-            placeholder={props.Lista[1]}
+            placeholder={props.place}
             maxLength={props.length}
             required
           ></input>

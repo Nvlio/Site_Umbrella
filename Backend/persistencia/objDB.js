@@ -1,5 +1,7 @@
 import connect from "./conexao.js";
 import modObj from "../modelo/objMod.js";
+import modImg from "../modelo/imgMod.js";
+import dbImg from "./imgDB.js";
 
 //classe responsavel para a comunicação e execução correta de dados vindos do sql
 export default class dbObj {
@@ -73,7 +75,9 @@ export default class dbObj {
     async DELETE(cod){
         const conexao = await connect()
         const sql = "DELETE FROM produtos WHERE cod = ?"
-        const values = [cod]
+        const values = [parseInt(cod)]
+        const img = new dbImg()
+        await img.DELETE(null,cod,null)
         await conexao.query(sql,values)
         return {status:true,message:"produto escluido com sucesso!"}
     }
